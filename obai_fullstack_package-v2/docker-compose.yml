@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    container_name: obai-postgres
+    environment:
+      POSTGRES_DB: obai
+      POSTGRES_USER: obai
+      POSTGRES_PASSWORD: obai_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backend/sql/01_schema_postgresql.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./backend/sql/02_seed_data.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+      - obai_pg:/var/lib/postgresql/data
+    networks:
+      - obai-network
+
+  backend:
+    build: ./backend
+    container_name: obai-backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      OBAI_DB_URL: jdbc:postgresql://postgres:5432/obai
+      OBAI_DB_USERNAME: obai
+      OBAI_DB_PASSWORD: obai_dev_password
+      OBAI_JWT_SECRET: change-me-in-production
+      OBAI_WECHAT_APPID: replace-with-wechat-appid
+      OBAI_WECHAT_SECRET: replace-with-wechat-secret
+      OBAI_WECHAT_DEV_FALLBACK_ENABLED: "false"
+      OBAI_WECHAT_PAY_MCH_ID: replace-with-mch-id
+      OBAI_WECHAT_PAY_SERIAL_NO: replace-with-cert-serial-no
+      OBAI_WECHAT_PAY_PRIVATE_KEY: replace-with-pkcs8-private-key
+      OBAI_WECHAT_PAY_NOTIFY_URL: https://api.example.com/api/app/wechat/pay/notify
+    ports:
+      - "8080:8080"
+    networks:
+      - obai-network
+
+networks:
+  obai-network:
+    driver: bridge
+volumes:
+  obai_pg:

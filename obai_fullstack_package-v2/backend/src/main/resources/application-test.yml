@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: ${OBAI_DB_URL:jdbc:postgresql://localhost:5432/obai_test}
+    username: ${OBAI_DB_USERNAME:obai_test}
+    password: ${OBAI_DB_PASSWORD:obai_test_password}
+    driver-class-name: org.postgresql.Driver
+logging:
+  level:
+    com.obai.platform: INFO

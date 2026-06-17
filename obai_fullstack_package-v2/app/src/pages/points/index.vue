@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">OB 积分</view><view class="big">{{ data.account?.balance || 0 }}</view><view class="muted">当前积分</view><view v-for="t in data.transactions" :key="t.id" class="row">{{ t.description }} <text>{{ t.amount }}</text></view></view></view></template>
+<script setup>import { ref,onMounted } from 'vue'; import { api } from '@/api/index'; const data=ref({transactions:[]}); onMounted(async()=>{ data.value=await api.points() })</script>
+<style scoped>.big{font-size:64rpx;color:#07853c;font-weight:900}.row{display:flex;justify-content:space-between;padding:18rpx 0;border-bottom:1rpx solid #edf3ef}</style>

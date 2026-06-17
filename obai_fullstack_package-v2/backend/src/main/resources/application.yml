@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: obai-platform
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Shanghai
+        format_sql: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+knife4j:
+  enable: true
+
+obai:
+  jwt:
+    secret: ${OBAI_JWT_SECRET:dev-secret-change-me}
+    expire-seconds: ${OBAI_JWT_EXPIRE_SECONDS:86400}
+  wechat:
+    appid: ${OBAI_WECHAT_APPID:demo-appid}
+    secret: ${OBAI_WECHAT_SECRET:demo-secret}
+    dev-fallback-enabled: ${OBAI_WECHAT_DEV_FALLBACK_ENABLED:true}
+    pay-mch-id: ${OBAI_WECHAT_PAY_MCH_ID:}
+    pay-serial-no: ${OBAI_WECHAT_PAY_SERIAL_NO:}
+    pay-private-key: ${OBAI_WECHAT_PAY_PRIVATE_KEY:}
+    pay-notify-url: ${OBAI_WECHAT_PAY_NOTIFY_URL:http://localhost:8080/api/app/wechat/pay/notify}
+    pay-description: ${OBAI_WECHAT_PAY_DESCRIPTION:OBAI 菌淘商城订单}
+    pay-api-host: ${OBAI_WECHAT_PAY_API_HOST:https://api.mch.weixin.qq.com}
+  cors:
+    allowed-origins: ${OBAI_CORS_ALLOWED_ORIGINS:*}

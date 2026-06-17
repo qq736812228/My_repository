@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">团体客户入口</view><input v-model="organizationName" placeholder="企业/机构名称"/><input v-model="contactPhone" placeholder="联系电话"/><button class="green-btn" @tap="submit">提交团体合作申请</button></view></view></template>
+<script setup>import { ref } from 'vue'; import { api } from '@/api/index'; const organizationName=ref(''); const contactPhone=ref(''); async function submit(){ await api.groupLead({organizationName:organizationName.value, contactName:'联系人', contactPhone:contactPhone.value, remark:'小程序提交'}); uni.showToast({title:'已提交'}) }</script>
+<style scoped>input{background:#f8fcf9;border-radius:16rpx;padding:20rpx;margin:16rpx 0}</style>

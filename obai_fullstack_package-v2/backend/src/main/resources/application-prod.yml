@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${OBAI_DB_URL}
+    username: ${OBAI_DB_USERNAME}
+    password: ${OBAI_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: ${OBAI_DB_POOL_SIZE:30}
+      minimum-idle: ${OBAI_DB_MIN_IDLE:5}
+logging:
+  level:
+    root: INFO
+    com.obai.platform: INFO
+
+obai:
+  wechat:
+    dev-fallback-enabled: ${OBAI_WECHAT_DEV_FALLBACK_ENABLED:false}

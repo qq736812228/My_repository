@@ -1,0 +1,11 @@
+# Dependencies
+**/node_modules/
+
+# Build output
+**/dist/
+**/unpackage/
+obai_fullstack_package-v2/backend/target/
+
+# Logs & OS files
+*.log
+.DS_Store

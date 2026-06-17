@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: OBAI Platform API
+  version: 1.0.0
+  description: 耦白 OBAI 核心接口摘要。完整接口以运行后的 /v3/api-docs 为准。
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/auth/login:
+    post:
+      summary: 账号登录
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string }
+                password: { type: string }
+      responses:
+        '200': { description: Token response }
+  /api/auth/wechat-login:
+    post:
+      summary: 微信登录
+      responses:
+        '200': { description: Token response }
+  /api/admin/dashboard/overview:
+    get:
+      summary: 管理端控制台统计
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Dashboard overview }
+  /api/admin/{endpoint}:
+    get:
+      summary: 管理端通用列表
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: List data }
+    post:
+      summary: 管理端通用新增
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Created entity }
+  /api/admin/{endpoint}/{id}:
+    get:
+      summary: 管理端通用详情
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema: { type: string }
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200': { description: Entity detail }
+    put:
+      summary: 管理端通用更新
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema: { type: string }
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200': { description: Updated entity }
+    delete:
+      summary: 管理端通用删除
+      parameters:
+        - in: path
+          name: endpoint
+          required: true
+          schema: { type: string }
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200': { description: Deleted }
+  /api/app/home:
+    get:
+      summary: 小程序首页数据
+      responses:
+        '200': { description: Home data }
+  /api/app/health/archive:
+    get:
+      summary: 获取健康档案
+      responses:
+        '200': { description: Archive }
+    put:
+      summary: 保存健康档案
+      responses:
+        '200': { description: Archive }
+  /api/app/health/self-tests:
+    get:
+      summary: 自测记录列表
+      responses:
+        '200': { description: Self test list }
+    post:
+      summary: 提交微态自测
+      responses:
+        '200': { description: Self test record }
+  /api/app/detection/orders:
+    get:
+      summary: 检测订单列表
+      responses:
+        '200': { description: Detection orders }
+    post:
+      summary: 创建检测订单
+      responses:
+        '200': { description: Detection order }
+  /api/app/mall/products:
+    get:
+      summary: 商品列表
+      responses:
+        '200': { description: Products }
+  /api/app/mall/orders:
+    post:
+      summary: 创建商城订单
+      responses:
+        '200': { description: Mall order }
+  /api/app/points:
+    get:
+      summary: 积分中心
+      responses:
+        '200': { description: Points summary }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

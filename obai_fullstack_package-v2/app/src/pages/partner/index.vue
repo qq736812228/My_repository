@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">合作伙伴入口</view><input v-model="partnerName" placeholder="机构/伙伴名称"/><input v-model="contactPhone" placeholder="联系电话"/><button class="green-btn" @tap="submit">提交合作申请</button></view></view></template>
+<script setup>import { ref } from 'vue'; import { api } from '@/api/index'; const partnerName=ref(''); const contactPhone=ref(''); async function submit(){ await api.partnerLead({partnerName:partnerName.value, partnerType:'生态伙伴', contactName:'联系人', contactPhone:contactPhone.value, remark:'小程序提交'}); uni.showToast({title:'已提交'}) }</script>
+<style scoped>input{background:#f8fcf9;border-radius:16rpx;padding:20rpx;margin:16rpx 0}</style>

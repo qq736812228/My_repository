@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">专业检测</view><button class="green-btn" @tap="create">创建检测订单</button><view v-for="o in orders" :key="o.id" class="row">{{ o.orderNo }} · {{ o.status }} · {{ o.sampleNo }}</view></view></view></template>
+<script setup>import { ref,onMounted } from 'vue'; import { api } from '@/api/index'; const orders=ref([]); async function load(){ orders.value=await api.detectionOrders() } async function create(){ await api.createDetection({testType:'16S', institutionName:'OBAI 合作检测机构'}); uni.showToast({title:'已创建'}); await load() } onMounted(load)</script>
+<style scoped>.row{padding:20rpx;border-bottom:1rpx solid #edf3ef;color:#31533b}</style>

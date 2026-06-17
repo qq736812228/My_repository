@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">消息</view><view class="notice">平台公告：OBAI 平台隐私政策更新说明</view><view class="notice">订阅提醒：检测报告完成后将发送服务通知</view><button class="green-btn" @tap="sub">订阅消息</button></view></view></template>
+<script setup>import { api } from '@/api/index'; async function sub(){ uni.requestSubscribeMessage({tmplIds:['demo-template-id'], complete: async()=>{ await api.subscribeMessage({templateId:'demo-template-id', scene:'report'}); uni.showToast({title:'已提交订阅'}) }}) }</script>
+<style scoped>.notice{background:#f8fcf9;border-radius:16rpx;padding:20rpx;margin-bottom:16rpx}</style>

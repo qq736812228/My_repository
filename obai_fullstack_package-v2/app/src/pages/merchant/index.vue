@@ -1,0 +1,3 @@
+<template><view><view class="card"><view class="section-title">商家发布 · 平台审核</view><input v-model="merchantName" placeholder="商户名称"/><input v-model="contactPhone" placeholder="联系电话"/><button class="green-btn" @tap="submit">提交入驻申请</button></view></view></template>
+<script setup>import { ref } from 'vue'; import { api } from '@/api/index'; const merchantName=ref(''); const contactPhone=ref(''); async function submit(){ await api.merchantApply({merchantName:merchantName.value, contactName:'联系人', contactPhone:contactPhone.value, licenseNo:''}); uni.showToast({title:'已提交'}) }</script>
+<style scoped>input{background:#f8fcf9;border-radius:16rpx;padding:20rpx;margin:16rpx 0}</style>
